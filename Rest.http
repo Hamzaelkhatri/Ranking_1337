@@ -1,0 +1,6 @@
+#### GET BEARER TOKEN #####################
+# curl  -H "Authorization: Bearer 7d2bec8218f7a66bffe3976fafab9810d08ac5c3cdd2d9f013cfca9414860929" "https://api.intra.42.fr/v2/users"
+GET  https://api.intra.42.fr/v2/users
+Authorization: Bearer 7d2bec8218f7a66bffe3976fafab9810d08ac5c3cdd2d9f013cfca9414860929
+
+
