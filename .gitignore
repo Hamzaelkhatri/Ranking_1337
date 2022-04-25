@@ -1,4 +1,8 @@
 dist
 node_modules
+./frontend/node_modules
+./server/node_modules
 .bin
 .cache
+
+# ./components/node_modules

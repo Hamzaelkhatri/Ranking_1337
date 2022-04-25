@@ -18,19 +18,23 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 // behalf, along with the user's profile.  The function must invoke `cb`
 // with a user object, which will be set at `req.user` in route handlers after
 // authentication.
+
+var access_token = "2";
 passport.use(new FortyTwoStrategy({
-  clientID: process.env.FORTYTWO_CLIENT_ID,
-  clientSecret: process.env.FORTYTWO_CLIENT_SECRET,
+  clientID: '5f0e84329a0666ef20872b67ecb7cfe22e98820bbe59d3fa1b06172a4e764872',
+  clientSecret: '00c61f3ac8bdb99197857894d83eaeeb03c120c24687be7cf47ed4946be16699',
   callbackURL: 'http://127.0.0.1:3000/login/42/return'
 },
-function(accessToken, refreshToken, profile, cb) {
-  // In this example, the user's 42 profile is supplied as the user
-  // record.  In a production-quality application, the 42 profile should
-  // be associated with a user record in the application's database, which
-  // allows for account linking and authentication with other identity
-  // providers.
-  return cb(null, profile);
-}));
+  function (accessToken, refreshToken, profile, cb) {
+    // console.log(accessToken);
+    access_token = accessToken;
+    // In this example, the user's 42 profile is supplied as the user
+    // record.  In a production-quality application, the 42 profile should
+    // be associated with a user record in the application's database, which
+    // allows for account linking and authentication with other identity
+    // providers.
+    return cb(null, profile);
+  }));
 
 // Configure Passport authenticated session persistence.
 //
@@ -41,11 +45,11 @@ function(accessToken, refreshToken, profile, cb) {
 // from the database when deserializing.  However, due to the fact that this
 // example does not have a database, the complete 42 profile is serialized
 // and deserialized.
-passport.serializeUser(function(user, cb) {
+passport.serializeUser(function (user, cb) {
   cb(null, user);
 });
 
-passport.deserializeUser(function(obj, cb) {
+passport.deserializeUser(function (obj, cb) {
   cb(null, obj);
 });
 
@@ -73,44 +77,47 @@ app.use(passport.session());
 
 // Define routes.
 app.get('/',
-    function(req, res) {
-      res.render('home', { user: req.user });
-    });
+  function (req, res) {
+    res.render('home', { user: req.user });
+  });
 
 app.get('/login',
-    function(req, res){
-      res.render('login');
-    });
+  function (req, res) {
+    res.render('login');
+  });
 
 app.get('/login/42',
-    passport.authenticate('42'));
+  passport.authenticate('42'));
 
 app.get('/login/42/return',
-    passport.authenticate('42', { failureRedirect: '/login' }),
-    function(req, res) {
-      res.redirect('/');
-    });
+  passport.authenticate('42', { failureRedirect: '/login' }),
+  function (req, res) {
+    // console.log(req.user);
+    // console.log(req);
+    res.redirect('http://localhost:3001/leaderboard?access_token=' + access_token);
+
+  });
 
 app.get('/profile',
-    ensureLoggedIn(),
-    function(req, res){
-      res.render('profile', { user: req.user });
-    });
+  ensureLoggedIn(),
+  function (req, res) {
+    res.render('profile', { user: req.user });
+  });
 
-app.get('/logout', function(req, res){
+app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
