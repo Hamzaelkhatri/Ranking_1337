@@ -57,7 +57,7 @@ export default function Lists() {
                     )
                     .catch(err => {
                         localStorage.removeItem("token");
-                        Router.push("http://localhost:3000/login/42");
+                        Router.push("https://backend-13.herokuapp.com/login/42");
                     })
             }
             else {

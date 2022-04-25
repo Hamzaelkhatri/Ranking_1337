@@ -34,7 +34,7 @@ export default function login() {
                 >Login</h1>
                 <Button type="primary" shape="round" size="large" onClick={
                     () => {
-                        Router.push('http://localhost:3000/login/42')
+                        Router.push('https://backend-13.herokuapp.com/login/42')
                     }
                 }
                 >Login with 42</Button>
