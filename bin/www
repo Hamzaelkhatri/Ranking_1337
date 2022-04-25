@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../index');
 var debug = require('debug')('passport-42-examples-login:server');
 var printError = require('debug')('passport-42-examples-login:error');
 var http = require('http');
