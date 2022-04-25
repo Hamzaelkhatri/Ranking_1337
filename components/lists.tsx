@@ -41,7 +41,7 @@ export default function Lists() {
     useEffect(
         () => {
             if (datas.length === 0) {
-                axios.get("https://api.intra.42.fr/v2/cursus/21/cursus_users?filter[campus_id]=16&filtre[created_at]=2020-11-11T09:57:18.084Z&filter[campus_id]=16&range[begin_at]=2019-10-16T00:00:00.000Z,2019-10-17T00:00:00.000Z&per_page=100&page=1",
+                axios.get("https://backend-13.herokuapp.com/leaderboard",
                     {
                         headers:
                         {
@@ -52,7 +52,6 @@ export default function Lists() {
                             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
                             "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
                         },
-                        mode : "cors"
                     })
                     .then(res => {
                         // console.log(res);
