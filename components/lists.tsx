@@ -27,10 +27,10 @@ const data = [
 
 //create interface for used data
 interface IList {
-    img : string;
-    name : string;
-    rank : number;
-    level : number;
+    img: string;
+    name: string;
+    rank: number;
+    level: number;
 }
 
 export default function Lists() {
@@ -41,17 +41,7 @@ export default function Lists() {
     useEffect(
         () => {
             if (datas.length === 0) {
-                axios.get("https://backend-13.herokuapp.com/leaderboard",
-                    {
-                        headers:
-                        {
-                            "Content-Type": "application/json",
-                            "Access-Control-Allow-Origin": "*",
-                            "Access-Control-Allow-Credentials": "true",
-                            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-                            "Access-Control-Allow-Headers": "X-Requested-With, content-type"
-                        },
-                    })
+                axios.get("https://backend-13.herokuapp.com/leaderboard")
                     .then(res => {
                         // console.log(res);
                         setData(res.data);
