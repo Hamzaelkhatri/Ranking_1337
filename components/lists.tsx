@@ -25,9 +25,17 @@ const data = [
     },
 ];
 
+//create interface for used data
+interface IList {
+    img : string;
+    name : string;
+    rank : number;
+    level : number;
+}
+
 export default function Lists() {
     const [datas, setData] = useState<any>([]);
-    const [usedData, setUsedData] = useState<any>([]);
+    const [usedData, setUsedData] = useState<IList[]>([]);
 
 
     useEffect(
@@ -35,7 +43,7 @@ export default function Lists() {
             if (datas.length === 0) {
                 axios.get("https://api.intra.42.fr/v2/cursus/21/cursus_users?filter[campus_id]=16&filtre[created_at]=2020-11-11T09:57:18.084Z&filter[campus_id]=16&range[begin_at]=2019-10-16T00:00:00.000Z,2019-10-17T00:00:00.000Z&per_page=100&page=1",
                     {
-                        headers: 
+                        headers:
                         {
                             "Authorization": "Bearer " + localStorage.getItem("token")
                         }
@@ -101,24 +109,24 @@ export default function Lists() {
                 }
             }
             dataSource={usedData}
-            loading={usedData.length === 0} 
+            loading={usedData.length === 0}
             renderItem={item => (
                 <List.Item>
                     <Card
-                    title={
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                textAlign: "center"
-                            }}
-                        >
-                            {
-                                item.rank
-                            }
-                        </div>
-                    }
+                        title={
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    textAlign: "center"
+                                }}
+                            >
+                                {
+                                    item.rank?.toString()
+                                }
+                            </div>
+                        }
                         cover={
                             <Avatar
                                 shape="square"
