@@ -1,8 +1,0 @@
-###
-GET https://api.intra.42.fr/oauth/token/info
-Authorization: "Bearer d3c8fb9eb1f4a678294c9d81ff8179a6df33e14cbbb8fc6ae402cf26d82823b1",
-# Content-Type: "application/json",
-
-# {
-#     "Authorization": "Bearer d3c8fb9eb1f4a678294c9d81ff8179a6df33e14cbbb8fc6ae402cf26d82823b1",
-# }
