@@ -4,26 +4,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 import { route } from 'next/dist/server/router';
-const data = [
-    {
-        title: 'Title 1',
-    },
-    {
-        title: 'Title 2',
-    },
-    {
-        title: 'Title 3',
-    },
-    {
-        title: 'Title 4',
-    },
-    {
-        title: 'Title 5',
-    },
-    {
-        title: 'Title 6',
-    },
-];
 
 //create interface for used data
 interface IList {
@@ -34,7 +14,7 @@ interface IList {
 }
 
 export default function Lists() {
-    const [datas, setData] = useState<any>([]);
+    const [datas, setData] = useState<IList[]>([]);
     const [usedData, setUsedData] = useState<IList[]>([]);
 
 
@@ -60,35 +40,6 @@ export default function Lists() {
         }, [datas]
     )
 
-    useEffect(() => {
-        setData(datas.sort((a: any, b: any) => {
-            if (a.level < b.level) {
-                return 1;
-            }
-            if (a.level > b.level) {
-                return -1;
-            }
-            return 0;
-        }));
-        let count = 1;
-        if (datas.length > 0 && usedData.length === 0) {
-            datas.forEach((element: any) => {
-                usedData.push(
-                    {
-                        img: element.user.image_url,
-                        name: element.user.displayname,
-                        level: element.level,
-                        rank: count
-                    }
-                );
-                count++;
-            }
-            );
-            console.log(usedData);
-        }
-
-
-    }, [datas]);
     return (
         <List
             grid={
@@ -102,8 +53,8 @@ export default function Lists() {
                     xxl: 3,
                 }
             }
-            dataSource={usedData}
-            loading={usedData.length === 0}
+            dataSource={datas}
+            loading={datas.length === 0}
             renderItem={item => (
                 <List.Item>
                     <Card
